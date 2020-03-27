@@ -7,7 +7,8 @@ public class EnemyMovement : MonoBehaviour {
 	Transform _player;
 
 	[SerializeField]
-	float _moveSpeed = 1.0f;
+	//aslinya 20.0f
+	float _moveSpeed = 200.0f;
 
 	// Use this for initialization
 	void Start () {
