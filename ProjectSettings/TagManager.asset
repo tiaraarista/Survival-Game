@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ObjectMusuh
+  - ObjectMusuh2
+  - ObjectMusuh3
+  - ObjectMusuh4
   layers:
   - Default
   - TransparentFX

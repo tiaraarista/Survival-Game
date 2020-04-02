@@ -17,7 +17,7 @@ public class LookY : MonoBehaviour {
 	void Update () {
 		_mouseY = Input.GetAxis ("Mouse Y");
 		Vector3 rot = transform.localEulerAngles;
-		rot.y -= _mouseY * _sensivity;
+		rot.x -= _mouseY * _sensivity;
 		transform.localEulerAngles = rot;
 	}
 }
