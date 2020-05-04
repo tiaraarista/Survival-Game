@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{3A17ECB1-57E5-F2C3-224D-A89B8047C7D1}</ProjectGuid>
+    <ProjectGuid>{AF5FA12E-872B-F8DC-EB26-E0306729EDC3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -59,11 +59,13 @@
      <Compile Include="Assets\SampleScenes\Scripts\ParticleSceneControls.cs" />
      <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
      <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
+     <Compile Include="Assets\Script\EnemyAnimation.cs" />
      <Compile Include="Assets\Script\EnemyMovement.cs" />
      <Compile Include="Assets\Script\Health.cs" />
      <Compile Include="Assets\Script\LookX.cs" />
      <Compile Include="Assets\Script\LookY.cs" />
      <Compile Include="Assets\Script\ObjectCollision.cs" />
+     <Compile Include="Assets\Script\PlayerAnimation.cs" />
      <Compile Include="Assets\Script\PlayerFolow.cs" />
      <Compile Include="Assets\Script\PlayerMovement.cs" />
      <Compile Include="Assets\Script\Rifle.cs" />
@@ -157,7 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{5C26D0E0-5835-A163-FBA1-9251A7E89F28}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{058950D3-A997-0478-9803-C07E7F13E8FC}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
