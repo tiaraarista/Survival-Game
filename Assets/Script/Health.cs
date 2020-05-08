@@ -10,6 +10,7 @@ public class Health : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_currentHealth = _maximumHealth;
+		//GetComponent<Health> ().Damage (100);
 	}
 	
 	// Update is called once per frame
@@ -20,7 +21,19 @@ public class Health : MonoBehaviour {
 	public void Damage(int damageValue){
 		_currentHealth -= damageValue;
 		if (_currentHealth <= 0) {
-			Destroy (gameObject);
+			Animation anim = GetComponentInChildren<Animation> ();
+			anim.Stop ();
+
+			//Destroy (GetComponent<PlayerMovement> ());
+			//Destroy (GetComponent<PlayerAnimation> ());
+
+			Destroy (GetComponent<EnemyMovement> ());
+			Destroy (GetComponent<CharacterController> ());
+
+			Ragdoll r = GetComponent<Ragdoll> ();
+			if (r != null) {
+				r.onDeath ();
+			}
 		}
 	}
 }
