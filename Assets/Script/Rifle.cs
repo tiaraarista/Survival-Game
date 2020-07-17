@@ -6,6 +6,9 @@ public class Rifle : MonoBehaviour {
 	[SerializeField]
 	int _damageDealt = 25;
 
+	[SerializeField]
+	GameObject _hitEffectPrefab;
+
 	// Use this for initialization
 	void Start () {
 		//Screen.lockCursor = true;
@@ -24,6 +27,12 @@ public class Rifle : MonoBehaviour {
 				Health enemyHealth = hitInfo.transform.GetComponent<Health> ();
 				if (enemyHealth != null) {
 					enemyHealth.Damage (_damageDealt);
+
+					if (enemyHealth.transform.root.tag == "ObjectMusuh") {
+						Vector3 hitEffectPosition = hitInfo.point;
+						Quaternion hitEffectRotation = Quaternion.FromToRotation (Vector3.forward, hitInfo.normal);
+						Instantiate (_hitEffectPrefab, hitEffectPosition, hitEffectRotation);
+					}
 				}
 			}
 		}

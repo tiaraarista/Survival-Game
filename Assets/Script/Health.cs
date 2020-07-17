@@ -14,6 +14,12 @@ public class Health : MonoBehaviour {
 
 	PlayerStats _playerStats;
 
+	[SerializeField]
+	AudioClip[] _hitSound;
+
+	[SerializeField]
+	AudioClip _deathSound;
+
 	// Use this for initialization
 	void Start () {
 		_renderer = GetComponentInChildren<Renderer> ();
@@ -32,20 +38,35 @@ public class Health : MonoBehaviour {
 
 	public void Damage(int damageValue){
 		_currentHealth -= damageValue;
-		if (_currentHealth <= 0) {
+		if (_currentHealth < 0) {
+			_currentHealth = 0;
+		} else {
+			if (_hitSound != null && _hitSound.Length > 0) {
+				AudioSource audio = GetComponent<AudioSource> ();
+				AudioClip soundToUse = _hitSound [Random.Range (0, _hitSound.Length)];
+				audio.clip = soundToUse;
+				audio.Play ();
+			}
+		}
+		if (_currentHealth == 0) {
+			if (_hitSound != null) {
+				AudioSource audio = GetComponent<AudioSource> ();
+				audio.clip = _deathSound;
+				audio.Play ();
+			}
 			Animation anim = GetComponentInChildren<Animation> ();
 			anim.Stop ();
 
 			_playerStats.ZombieKilled++;
+
+			EnemyDrops ed = GetComponent<EnemyDrops> ();
+			ed.onDeath ();
+
 			EnemySpawnManager.onEnemyDeath ();
 			Destroy (GetComponent<EnemyMovement> ());
 			Destroy (GetComponent<EnemyAttack> ());
 			Destroy (GetComponent<CharacterController> ());
 			Destroy (gameObject, 8.0f);
-
-			EnemySpawnManager.onEnemyDeath ();
-			Destroy (GetComponent<EnemyMovement> ());
-			Destroy (GetComponent<CharacterController> ());
 
 			Ragdoll r = GetComponent<Ragdoll> ();
 			if (r != null) {

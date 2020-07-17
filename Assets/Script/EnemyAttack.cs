@@ -11,20 +11,23 @@ public class EnemyAttack : MonoBehaviour {
 
 	float _nextTimeAttackIsAllowed = -1.0f;
 
+	[SerializeField]
+	GameObject _hitEffectPrefab;
+
 	void OnTriggerStay(Collider other){
 		if (other.tag == "Player" && Time.time >= _nextTimeAttackIsAllowed) {
-			PlayerHealth _playerHealth = other.GetComponent<PlayerHealth> ();
-			if (_playerHealth._currentHealth > 0) {
+			if (PlayerHealth._currentHealth > 0) {
+				PlayerHealth _playerHealth = other.GetComponent<PlayerHealth> ();
 				_playerHealth.Damage (_damageDealt);
 				_nextTimeAttackIsAllowed = Time.time + _attackDelay;
-			} else {
-				Animation anim = GetComponentInChildren<Animation> ();
-				anim.Stop ();
-				Destroy (GetComponentInParent<CharacterController> ());
-				Destroy (GetComponentInParent<EnemyMovement> ());
-				Destroy (GetComponentInParent<EnemyAnimation> ());
-				Destroy (GetComponentInParent<EnemyAttack> ());
-			}
+
+				Vector3 hitDirection = (transform.root.position = other.transform.position).normalized;
+				Vector3 hitEffectPosition = other.transform.position + (hitDirection * 0.01f) + (Vector3.up * 0.5f);
+				Quaternion hitEffectRotation = Quaternion.FromToRotation(Vector3.forward, hitDirection);
+				if(_hitEffectPrefab != null){
+					Instantiate (_hitEffectPrefab, hitEffectPosition, hitEffectRotation);
+				}
+			} 
 		}
 	}
 

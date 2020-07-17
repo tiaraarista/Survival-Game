@@ -12,13 +12,22 @@ public class PlayerHealth : MonoBehaviour {
 	[SerializeField]
 	Texture2D _gameOverImage;
 
-	public int _currentHealth = 0;
+	public static int _currentHealth = 0;
 
 	Renderer _renderer;
 	PlayerStats _playerStats;
 
 	[SerializeField]
 	Texture2D _winImage;
+
+	[SerializeField]
+	AudioClip _onDamage;
+
+	[SerializeField]
+	AudioClip _onDeath;
+
+	[SerializeField]
+	AudioClip _healthSound;
 
 	public string nyawa(){
 		return _currentHealth + " / " + _maximumHealth;
@@ -44,10 +53,26 @@ public class PlayerHealth : MonoBehaviour {
 		}
 	}
 
+	public void Health(int healthAmount){
+		_currentHealth += healthAmount;
+		if (_currentHealth > _maximumHealth) {
+			_currentHealth = _maximumHealth;
+		}
+		if (_healthSound != null) {
+			AudioSource audio = GetComponent<AudioSource> ();
+			audio.clip = _healthSound;
+			audio.Play ();
+		}
+	}
+
 	public void Damage(int damageValue){
 		_currentHealth -= damageValue;
 		if (_currentHealth < 0) {
 			_currentHealth = 0;
+		} else {
+			AudioSource audio = GetComponent<AudioSource> ();
+			audio.clip = _onDamage;
+			audio.Play ();
 		}
 
 		if (_currentHealth == 0) {

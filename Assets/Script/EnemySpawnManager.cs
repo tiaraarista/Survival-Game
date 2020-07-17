@@ -12,7 +12,7 @@ public class EnemySpawnManager : MonoBehaviour {
 	GameObject _enemyToSpawn;
 
 	[SerializeField]
-	float _spawnDelay = 1.0f;
+	float _spawnDelay = 0.0f;
 
 	[SerializeField]
 	float _enemyLimit = 30;
@@ -29,7 +29,15 @@ public class EnemySpawnManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GameManager.HasPlayerWon) {
+		if (GameManager.HasPlayerWon || PlayerHealth._currentHealth <= 0) {
+			GameObject[] obj = GameObject.FindGameObjectsWithTag ("ObjectMusuh");
+			foreach (GameObject o in obj) {
+				Animation anim = o.GetComponentInChildren<Animation> ();
+				anim.Stop ();
+				Destroy (o.GetComponent<EnemyMovement> ());
+				Destroy (o.GetComponent<EnemyAttack> ());
+				Destroy (o.GetComponent<CharacterController> ());
+			}
 			Destroy (this);
 			return;
 		}
